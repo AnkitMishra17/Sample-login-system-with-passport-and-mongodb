@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Welcome to Dashboard</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+</head>
+<body>
+<div class="wrapper">
+  <div class=" bounceIn" style="width: 72%;">
+  <div class="card text-white bg-dark mb-3" style="">
+    <div class="card-header p-3" style="font-size: 25px;">Your Applicants</div>
+    <div class="card-body">
+      <p class="card-text" align="center">Information regarding your customers can be seen here..</p>
+      <a href="/logout">Logout</a>
+      <table class="table table-hover mt-5">
+        <thead>
+          <tr class="p-5">
+            <th scope="col">Id</th>
+            <td>Name</td>
+            <th scope="col">Username</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Document</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=0; i< info.length;i++){ %>
+          <tr class="table-dark text-dark">
+            <th scope="row"><%= i+1 %></th>
+            <td><%= info[i].Name %></td>
+            <td><%= info[i].Username %></td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input
+                    type="checkbox"
+                    class="custom-control-input status"
+                    id="customSwitch<%= i+1 %>"
+                    value="<%=info[i].Status %>"
+                >
+
+                <label class="custom-control-label" for="customSwitch<%= i+1 %>"></label>
+              </div>
+            </td>
+            <td align="center"><%= info[i].Date.toLocaleDateString() %> <%= info[i].Date.toLocaleTimeString() %></td>
+            <td><a class="text-white" class="download" href="/downloadpdf">Download pdf</a></td>
+          </tr>
+         <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $('a').on('click', function(){
+    $.ajax({
+      type: 'GET',
+      url: '/downloadpdf',
+      success: function(data){
+        console.log('download-pdf');
+      }
+    });
+  });
+});
+</script>
+</html>
