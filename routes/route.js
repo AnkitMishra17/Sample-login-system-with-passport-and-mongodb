@@ -11,11 +11,11 @@ const Schema = mongoose.Schema;
 
 const urlencodedparser = bodyparser.urlencoded({extended:false});
 
-router.get('/login',forwardAuthenticated,(req, res)=>{
+router.get('/',forwardAuthenticated,(req, res)=>{
     res.render('login');
   });
 
-router.post('/login',urlencodedparser, (req,res,next)=>{
+router.post('/',urlencodedparser, (req,res,next)=>{
     console.log(req.body);
     passport.authenticate('local', { successRedirect: '/dashboard',
                                 failureRedirect: '/login',
